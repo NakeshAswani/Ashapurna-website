@@ -142,7 +142,7 @@ header button:hover, #banner .row button:hover{
 .aboutUsSec{
     margin-bottom: 4rem;
 }
-.aboutUsSec .col-lg-7 article{
+.aboutUsSec .col-lg-7 p{
     font-size: 14px;
     color: var(--textcolor);
     line-height: 26px;
@@ -500,7 +500,7 @@ header button:hover, #banner .row button:hover{
 .footerBottom .container>div{
     line-height: 40px;
 }
-.footerBottom article{
+.footerBottom p{
     font-size: 15.3px;
     line-height: 30px;
 }
@@ -528,13 +528,14 @@ header button:hover, #banner .row button:hover{
 .aboutUs{
     padding-top: 100px;
 }
-.aboutUs article{
+.aboutUs p{
     font-size: 14px;
     text-align: justify;
     line-height: 26px;
 }
-.aboutUs article a{
+.aboutUs p a{
     color: var(--color1);
+    text-decoration: none;
 }
 .aboutUsPageBar{
     background: url("./images/aboutmain-features-bg-new.png") no-repeat;
@@ -571,7 +572,7 @@ header button:hover, #banner .row button:hover{
     height: 2px;
     background: var(--comcolor2);
 }
-.visionMission article{
+.visionMission p{
     font-size: 14px;
     line-height: 26px;
     color: var(--textcolor);
@@ -600,7 +601,7 @@ header button:hover, #banner .row button:hover{
 .achievements h3, .briefJourney h3{
     color: var(--color2);
 }
-.achievements article, .briefJourney article{
+.achievements p, .briefJourney article{
     text-align: justify;
     font-size: 14px;
     line-height: 26px;

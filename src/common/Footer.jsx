@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import ffe726b1_c8b0_4798_8c89_ebad0cb7ebf3_1673702923 from "../images/ffe726b1-c8b0-4798-8c89-ebad0cb7ebf3-1673702923.svg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpen, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { faFacebookF, faInstagram, faLinkedinIn, faPinterestP, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import axios from 'axios'
+import { BaseURL } from '../api/baseURL'
 
 export default function Footer() {
+    let[configData, setConfigData]=useState('')
+    let[disclaimerData, setDisclaimerData]=useState('')
+    let footerCompData=()=>{
+        axios.post(BaseURL+'common-content')
+        .then((res)=>res.data)
+        .then((finalRes)=>{
+            console.log(finalRes._data);
+            let finalData=finalRes._data
+            // configuration data is set
+            setConfigData(finalData.configurations)
+            // disclaimer data is set
+            setDisclaimerData(finalData.getDisclaimer)
+        })
+    }
+    useState(()=>{
+        footerCompData()
+    },[])
     return (
         <footer className='container-fluid p-0'>
             <div className="footerTop py-5">
@@ -60,22 +79,22 @@ export default function Footer() {
                     </Row>
                     <h5 className='text-white text-capitalize text-center fw-bold mb-3'>follow us on</h5>
                     <div className='d-flex justify-content-center gap-2'>
-                        <Link to={"https://www.facebook.com/AshapurnaBuildconLtd"} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
+                        <Link to={configData.facebook_link} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faFacebookF} />
                         </Link>
-                        <Link to={"https://www.instagram.com/ashapurnabuildconltd/"} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
+                        <Link to={configData.instagram_link} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faInstagram} />
                         </Link>
-                        <Link to={"https://www.youtube.com/AshapurnaBuildconLtd"} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
+                        <Link to={configData.youtube_link} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faYoutube} />
                         </Link>
-                        <Link to={"https://twitter.com/ashapurnabl"} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
+                        <Link to={configData.twitter_link} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faTwitter} />
                         </Link>
-                        <Link to={"https://in.pinterest.com/ashapurnabuildconltd/"} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
+                        <Link to={configData.pinterest_link} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faPinterestP} />
                         </Link>
-                        <Link to={"https://www.linkedin.com/company/ashapurnabuildconltd/"} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
+                        <Link to={configData.linkedin_link} className='bg-white rounded-circle d-flex justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faLinkedinIn} />
                         </Link>
                     </div>
@@ -87,9 +106,7 @@ export default function Footer() {
                         <span style={{margin: "0px 36px"}}>Real Estate Developer In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Top Builders In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Top Residental Projects In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Commercial Property In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Houses In Rajasthan</span> | <span style={{margin: "0px 36px"}}>Flats In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Villas In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Plots In Jodhpur</span> | <span style={{margin: "0px 36px"}}>2BHK Flats In Jodhpur</span> | <span style={{margin: "0px 36px"}}>JDA Property In Jodhpur</span> | <span style={{margin: "0px 36px"}}>Property Type</span> | <span style={{margin: "0px 36px"}}>Properties In Jodhpur</span>
                     </div>
                     <hr className='w-50 mx-auto' />
-                    <article className='pt-4'>
-                        The information on the website regarding the project, except the legal documents, is purely indicative and representational and do not constitute a promise by the company. Further, the Company/Architects reserve the right to add / delete any details / specifications / elevations mentioned, if so warranted.
-                    </article>
+                    <div dangerouslySetInnerHTML={{__html: disclaimerData.description}} className='pt-4' />
                 </Container>
             </div>
             <div className="footerLine">
